@@ -12,30 +12,33 @@ const ProfileSchema = new Schema({
     required: true,
     max: 32
   },
-  location: [
-    {
-      city: {
-        type: String,
-        required: true,
-        max: 32
-      },
-      street: {
-        type: String,
-        required: true,
-        max: 32
-      },
-      zipcode: {
-        type: String,
-        required: true,
-        max: 16
-      },
-      phone: {
-        type: String,
-        required: true,
-        max: 32
-      }
+  location: {
+    city: {
+      type: String,
+      required: true,
+      max: 32
+    },
+    street: {
+      type: String,
+      required: true,
+      max: 32
+    },
+    streetnumber: {
+      type: String,
+      required: true,
+      max: 16
+    },
+    zipcode: {
+      type: String,
+      required: true,
+      max: 16
+    },
+    phone: {
+      type: String,
+      required: true,
+      max: 32
     }
-  ],
+  },
   company: {
     type: String,
     max: 32
@@ -48,7 +51,7 @@ const ProfileSchema = new Schema({
       type: String
     },
     facebook: {
-      type: Facebook
+      type: String
     },
     instagram: {
       type: String
