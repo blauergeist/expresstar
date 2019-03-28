@@ -15,37 +15,37 @@ const OrderSchema = new Schema({
     type: String,
     default: "Awaiting pickup"
   },
-  recipient: {
-    name: {
+
+  //rec in front of field names stands for "recipient" - done so that the data of recipient doesn't get confused for the data of the sender
+  recName: {
+    type: String,
+    required: true
+  },
+  recLocation: {
+    recCity: {
       type: String,
-      required: true
+      required: true,
+      max: 32
     },
-    location: {
-      city: {
-        type: String,
-        required: true,
-        max: 32
-      },
-      street: {
-        type: String,
-        required: true,
-        max: 32
-      },
-      streetnumber: {
-        type: String,
-        required: true,
-        max: 16
-      },
-      zipcode: {
-        type: String,
-        required: true,
-        max: 16
-      },
-      phone: {
-        type: String,
-        required: true,
-        max: 32
-      }
+    recStreet: {
+      type: String,
+      required: true,
+      max: 32
+    },
+    recStreetnumber: {
+      type: String,
+      required: true,
+      max: 16
+    },
+    recZipcode: {
+      type: String,
+      required: true,
+      max: 16
+    },
+    recPhone: {
+      type: String,
+      required: true,
+      max: 32
     }
   },
   sender: {
