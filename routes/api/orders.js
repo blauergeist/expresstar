@@ -66,17 +66,27 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Order.find({ user: req.user.id })
-      .sort({ date: -1 })
-      .then(orders => res.json(orders))
-      .catch(err => res.status(404).json(err));
+    if (req.user.role === "admin") {
+      Order.find({})
+        .sort({ date: -1 })
+        .then(orders => res.json(orders));
+    } else if (req.user.role === "driver") {
+      Order.find({ order: req.order.driver })
+        .sort({ date: -1 })
+        .then(orders => res.json(orders));
+    } else {
+      Order.find({ user: req.user.id })
+        .sort({ date: -1 })
+        .then(orders => res.json(orders))
+        .catch(err => res.status(404).json(err));
+    }
   }
 );
 
 // @route         GET api/orders/:id
 // @description   get an order by ID
 // @access        public
-router.get("/:id", (req, res) => {
+router.get("/id", (req, res) => {
   Order.findById(req.params.id)
     .then(order => res.json(order))
     .catch(err =>
