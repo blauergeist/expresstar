@@ -60,7 +60,7 @@ const ProfileSchema = new Schema({
   website: {
     type: String
   },
-  rating: [
+  likes: [
     {
       user: {
         type: Schema.Types.ObjectId,

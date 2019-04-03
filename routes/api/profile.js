@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const validateProfileInput = require("../../validation/profile");
+const validateCommentInput = require("../../validation/comment");
 
 //loading profile model
 const Profile = require("../../models/Profile");
@@ -175,5 +176,161 @@ router.post(
     });
   }
 );
+
+// @route         POST api/profile/like/:id
+// @description   upvote a profile
+// @access        private
+router.post(
+  "/like/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        Profile.findById(req.params.id)
+          .then(profile => {
+            //checking if the current user has already upvoted the profile
+            if (
+              profile.likes.filter(like => like.user.toString() === req.user.id)
+                .length > 0
+            ) {
+              return res.status(400).json({
+                alreadyliked: "Profile is already upvoted by the current user"
+              });
+            }
+            //add current user's ID to the array of people who upvoted
+            profile.likes.unshift({ user: req.user.id });
+
+            profile.save().then(profile => res.json(profile));
+          })
+          .catch(err =>
+            res
+              .status(404)
+              .json({ profilenotfound: "No profile found under this ID" })
+          );
+      })
+      .catch(err =>
+        res
+          .status(404)
+          .json({ profilenotfound: "No profile found under this ID" })
+      );
+  }
+);
+
+// @route         POST api/profile/unlike/:id
+// @description   downvote a profile
+// @access        private
+router.post(
+  "/unlike/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        Profile.findById(req.params.id)
+          .then(profile => {
+            //checking if the current user has already upvoted the profile
+            if (
+              profile.likes.filter(like => like.user.toString() === req.user.id)
+                .length === 0
+            ) {
+              return res.status(400).json({
+                unliked: "You have not upvoted this profile"
+              });
+            }
+            //get remove index and splice out of array
+            const removeIndex = profile.likes
+              .map(item => item.user.toString())
+              .indexOf(req.user.id);
+            profile.likes.splice(removeIndex, 1);
+            profile.save().then(profile => res.json(profile));
+          })
+          .catch(err =>
+            res
+              .status(404)
+              .json({ profilenotfound: "No profile found under this ID" })
+          );
+      })
+      .catch(err =>
+        res
+          .status(404)
+          .json({ profilenotfound: "No profile found under this ID" })
+      );
+  }
+);
+
+// @route         POST api/profile/comment/:id
+// @description   add feedback to a profile
+// @access        private
+router.post(
+  "/comment/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateCommentInput(req.body);
+    //validation check
+    if (!isValid) {
+      //return errors if there are any - status 400
+      return res.status(400).json(errors);
+    }
+
+    Profile.findById(req.params.id)
+      .then(profile => {
+        const newComment = {
+          text: req.body.text,
+          name: req.body.name,
+          avatar: req.body.avatar,
+          user: req.user.id
+        };
+        //adding to array
+        profile.comments.unshift(newComment);
+        //save the data
+        profile
+          .save()
+          .then(profile => res.json(profile))
+          .catch(err =>
+            res
+              .status(404)
+              .json({ profilenotfound: "No profile found under this ID" })
+          );
+      })
+      .catch(err =>
+        res
+          .status(404)
+          .json({ profilenotfound: "No profile found under this ID" })
+      );
+  }
+);
+
+// @route         DELETE api/profile/comment/:id
+// @description   remove feedback from a profile
+// @access        private
+router.delete("/comment/:id/:comment_id"),
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findById(req.params.id)
+      .then(profile => {
+        //check if comment exists
+        if (
+          profile.comment.filter(
+            comment => comment._id.toString() === req.params.comment_id
+          ).length === 0
+        ) {
+          return res
+            .status(404)
+            .res.json({ commentnotfound: "Comment does not exist" });
+        }
+
+        //get remove index
+        const removeIndex = profile.comments
+          .map(item => item._id.toString())
+          .indexOf(req.params.comment_id);
+        //splice out of array
+        profile.comments.splice(removeIndex, 1);
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err =>
+        res
+          .status(404)
+          .json({ profilenotfound: "No profile found under this ID" })
+      );
+  };
 
 module.exports = router;
