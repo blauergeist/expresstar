@@ -43,8 +43,7 @@ router.post("/register", (req, res) => {
         name: req.body.name,
         email: req.body.email,
         avatar,
-        password: req.body.password,
-        role: req.body.role
+        password: req.body.password
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -90,7 +89,8 @@ router.post("/login", (req, res) => {
         const payload = {
           id: user.id,
           name: user.name,
-          avatar: user.avatar
+          avatar: user.avatar,
+          role: user.role
         }; // jwt payload
         // sign token
         jwt.sign(
@@ -122,7 +122,8 @@ router.get(
     res.json({
       id: req.user.id,
       name: req.user.name,
-      email: req.user.email
+      email: req.user.email,
+      role: req.user.role
     });
   }
 );

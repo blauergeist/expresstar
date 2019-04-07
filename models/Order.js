@@ -15,9 +15,6 @@ const OrderSchema = new Schema({
     type: String,
     default: "Awaiting pickup"
   },
-  driver: {
-    type: String
-  },
 
   //rec in front of field names stands for "recipient" - done so that the data of recipient doesn't get confused for the data of the sender
   recName: {

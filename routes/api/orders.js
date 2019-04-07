@@ -86,7 +86,7 @@ router.get(
 // @route         GET api/orders/:id
 // @description   get an order by ID
 // @access        public
-router.get("/id", (req, res) => {
+router.get("/:id", (req, res) => {
   Order.findById(req.params.id)
     .then(order => res.json(order))
     .catch(err =>
