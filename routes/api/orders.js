@@ -71,7 +71,7 @@ router.get(
         .sort({ date: -1 })
         .then(orders => res.json(orders));
     } else if (req.user.role === "driver") {
-      Order.find({ order: req.order.driver })
+      Order.find({ order: req.user.id })
         .sort({ date: -1 })
         .then(orders => res.json(orders));
     } else {
