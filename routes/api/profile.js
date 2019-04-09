@@ -89,23 +89,19 @@ router.get(
 // @description   get all profiles
 // @access        private
 
-router.get(
-  "/all",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const errors = {};
-    Profile.find()
-      .populate("user", ["name", "avatar"])
-      .then(profiles => {
-        if (!profiles) {
-          errors.notprofile = "No profiles found";
-          return res.status(404).json(errors);
-        }
-        res.json(profiles);
-      })
-      .catch(err => res.status(404).json({ profile: "No profiles found" }));
-  }
-);
+router.get("/all", (req, res) => {
+  const errors = {};
+  Profile.find()
+    .populate("user", ["name", "avatar"])
+    .then(profiles => {
+      if (!profiles) {
+        errors.notprofile = "No profiles found";
+        return res.status(404).json(errors);
+      }
+      res.json(profiles);
+    })
+    .catch(err => res.status(404).json({ profile: "No profiles found" }));
+});
 
 // @route         POST api/profile
 // @description   create/update profile for the current user
@@ -332,5 +328,20 @@ router.delete("/comment/:id/:comment_id"),
           .json({ profilenotfound: "No profile found under this ID" })
       );
   };
+
+// @route   DELETE api/profile
+// @desc    Delete user and profile
+// @access  Private
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOneAndRemove({ user: req.user.id }).then(() => {
+      User.findOneAndRemove({ _id: req.user.id }).then(() =>
+        res.json({ success: true })
+      );
+    });
+  }
+);
 
 module.exports = router;

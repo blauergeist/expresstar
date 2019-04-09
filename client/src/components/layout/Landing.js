@@ -23,7 +23,10 @@ class Landing extends Component {
                   Providing quality and quantity to your selling process.
                 </p>
                 <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
+                <Link
+                  to="/register"
+                  className="btn btn-lg btn-warning text-white mr-2"
+                >
                   Register
                 </Link>
                 <Link to="/login" className="btn btn-lg btn-light">

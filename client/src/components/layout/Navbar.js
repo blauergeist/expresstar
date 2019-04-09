@@ -24,6 +24,12 @@ class Navbar extends Component {
               Orders
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/dashboard">
+              {" "}
+              Dashboard
+            </Link>
+          </li>
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
@@ -48,12 +54,12 @@ class Navbar extends Component {
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/register">
+          <Link className="nav-link text-warning" to="/register">
             Register
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/login">
+          <Link className="nav-link text-warning" to="/login">
             Login
           </Link>
         </li>
@@ -65,6 +71,10 @@ class Navbar extends Component {
         <div className="container">
           <Link className="navbar-brand" to="/">
             EXPRESSTAR
+          </Link>
+          <Link className="nav-link text-warning" to="/profiles">
+            {" "}
+            Shop List
           </Link>
           <button
             className="navbar-toggler"
