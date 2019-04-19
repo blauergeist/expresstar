@@ -116,3 +116,29 @@ export const deleteAccount = () => dispatch => {
       );
   }
 };
+
+//upvote a shop
+export const addLike = id => dispatch => {
+  axios
+    .post(`/api/profile/like/${id}`)
+    .then(res => dispatch(getCurrentProfile()))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+//downvote a shop
+export const removeLike = id => dispatch => {
+  axios
+    .post(`/api/profile/unlike/${id}`)
+    .then(res => dispatch(getCurrentProfile()))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};

@@ -30,7 +30,7 @@ router.post(
     const orderFields = {};
     orderFields.user = req.user.id;
     if (req.body.description) orderFields.description = req.body.description;
-    if (req.body.status) orderFields.status = req.body.status;
+
     //recipient
     if (req.body.recName) orderFields.recName = req.body.recName;
     orderFields.recLocation = {};
@@ -42,20 +42,50 @@ router.post(
     if (req.body.recZipcode)
       orderFields.recLocation.recZipcode = req.body.recZipcode;
     if (req.body.recPhone) orderFields.recLocation.recPhone = req.body.recPhone;
+
     //sender
     orderFields.sender = {};
-    if (req.body.name) orderFields.sender.name = req.user.name;
-    if (req.body.street) orderFields.sender.street = req.user.street;
+    if (req.body.name) orderFields.sender.name = req.body.name;
+    if (req.body.city) orderFields.sender.city = req.body.city;
+    if (req.body.street) orderFields.sender.street = req.body.street;
     if (req.body.streetnumber)
-      orderFields.sender.streetnumber = req.user.streetnumber;
-    if (req.body.zipcode) orderFields.sender.zipcode = req.user.zipcode;
-    if (req.body.phone) orderFields.sender.phone = req.user.phone;
+      orderFields.sender.streetnumber = req.body.streetnumber;
+    if (req.body.zipcode) orderFields.sender.zipcode = req.body.zipcode;
+    if (req.body.phone) orderFields.sender.phone = req.body.phone;
+
+    //declaring the driver variable
+    const adminFields = {};
+    if (req.body.driver) adminFields.driver = req.body.driver;
+    if (req.body.status) adminFields.status = req.body.status;
 
     //const newOrder = new Order(orderFields);
     new Order(orderFields)
       .save()
       .then(order => res.json(order))
       .catch(err => res.status(404).json(err));
+  }
+);
+
+router.post(
+  "/assign",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const adminFields = {};
+    if (req.body.driver) adminFields.driver = req.body.driver;
+    if (req.body.status) adminFields.status = req.body.status;
+
+    Order.findOne({ Order }).then(order => {
+      if (order) {
+        //update order
+        Order.findOneAndUpdate(
+          { _id: req.body._id },
+          { $set: adminFields },
+          { new: true }
+        )
+          .then(body => res.json(body))
+          .catch(err => res.status(404).json(err));
+      }
+    });
   }
 );
 

@@ -32,10 +32,7 @@ class Dashboard extends Component {
               <Link to={`/profile/${profile.handle}`}>{user.name} </Link>
             </p>
             <ProfileActions />
-            <div
-              className="btn-group mb-4 d-flex justify-content-center"
-              role="group"
-            >
+            <div className="text-center p-5">
               <button
                 onClick={this.onDeleteClick.bind(this)}
                 className="btn btn-danger"

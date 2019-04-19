@@ -15,6 +15,10 @@ const OrderSchema = new Schema({
     type: String,
     default: "Awaiting pickup"
   },
+  driver: {
+    type: String,
+    default: "To be assigned"
+  },
 
   //rec in front of field names stands for "recipient" - done so that the data of recipient doesn't get confused for the data of the sender
   recName: {
@@ -50,29 +54,33 @@ const OrderSchema = new Schema({
   },
   sender: {
     name: {
-      type: String
+      type: String,
+      required: true
     },
-    location: {
-      city: {
-        type: String,
-        max: 32
-      },
-      street: {
-        type: String,
-        max: 32
-      },
-      streetnumber: {
-        type: String,
-        max: 16
-      },
-      zipcode: {
-        type: String,
-        max: 16
-      },
-      phone: {
-        type: String,
-        max: 32
-      }
+    city: {
+      type: String,
+      max: 32,
+      required: true
+    },
+    street: {
+      type: String,
+      max: 32,
+      required: true
+    },
+    streetnumber: {
+      type: String,
+      max: 16,
+      required: true
+    },
+    zipcode: {
+      type: String,
+      max: 16,
+      required: true
+    },
+    phone: {
+      type: String,
+      max: 32,
+      required: true
     }
   },
   date: {

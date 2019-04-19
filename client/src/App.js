@@ -22,6 +22,9 @@ import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
+import Orders from "./components/orders/Orders";
+import CreateOrder from "./components/orders/CreateOrder";
+import Order from "./components/order/Order";
 
 //check local storage for token after every request
 if (localStorage.jwtToken) {
@@ -71,6 +74,19 @@ class App extends Component {
                 path="/edit-profile"
                 component={EditProfile}
               />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/orders" component={Orders} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/create-order"
+                component={CreateOrder}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/order/:id" component={Order} />
             </Switch>
             <Footer />
           </div>
