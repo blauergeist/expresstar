@@ -21,6 +21,9 @@ class Orders extends Component {
     return (
       <div className="feed">
         <div className="container">
+          <h1 className="display-4 d-flex justify-content-center">
+            Order Management
+          </h1>
           <div className="row">
             <div className="col-md-12">{orderContent}</div>
           </div>

@@ -5,23 +5,19 @@ import { Link } from "react-router-dom";
 import ProfileHeader from "./ProfileHeader";
 import ProfileAbout from "./ProfileAbout";
 import Spinner from "../common/Spinner";
+import CommentForm from "./CommentForm";
 import {
   getProfileByHandle,
   getCurrentProfile,
   addLike,
   removeLike
 } from "../../actions/profileActions";
+import authReducer from "../../reducers/authReducer";
 
 class Profile extends Component {
   componentDidMount() {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.profile === null && this.props.profile.loading) {
-      this.props.history.push("/not-found");
     }
   }
 
@@ -53,12 +49,6 @@ class Profile extends Component {
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
           <div className="col-md-10">
-            <p className="lead">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-              possimus corporis sunt necessitatibus! Minus nesciunt soluta
-              suscipit nobis. Amet accusamus distinctio cupiditate blanditiis
-              dolor? Illo perferendis eveniet cum cupiditate aliquam?
-            </p>
             <button
               onClick={this.onLikeClick.bind(this, profile._id)}
               type="button"
@@ -74,14 +64,16 @@ class Profile extends Component {
             >
               <i className="text-secondary fas fa-thumbs-down" />
             </button>
-            <Link to={`/profile/${profile._id}`} className="btn btn-info mr-1">
-              Comments
-            </Link>
-          </div>
+            <small className="form-text text-muted">
+              If you have a positive experience with this shop, give them a
+              rating point.
+            </small>
+          </div>{" "}
+          <br />
+          <CommentForm profileId={profile._id} />
         </div>
       );
     }
-
     return (
       <div className="profile">
         <div className="container">

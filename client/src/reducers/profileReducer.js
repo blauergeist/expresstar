@@ -2,13 +2,17 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  GET_PROFILES
+  GET_PROFILES,
+  ADD_FEEDBACK,
+  DELETE_FEEDBACK
 } from "../actions/types";
 
 const initialState = {
   profile: null,
   profiles: null,
-  loading: false
+  loading: false,
+  feedbackSent: false,
+  feedbackRemoved: false
 };
 
 export default function(state = initialState, action) {
@@ -35,6 +39,17 @@ export default function(state = initialState, action) {
         profiles: action.payload,
         loading: false
       };
+    case ADD_FEEDBACK:
+      return {
+        ...state,
+        feedbackSent: true
+      };
+    case DELETE_FEEDBACK:
+      return {
+        ...state,
+        feedbackRemoved: true
+      };
+
     default:
       return state;
   }

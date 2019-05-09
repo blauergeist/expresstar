@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import { clearCurrentProfile } from "../../actions/profileActions";
+import Spinner from "../common/Spinner";
 
 class Navbar extends Component {
   onLogoutClick(e) {
@@ -14,22 +15,33 @@ class Navbar extends Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
+    const { profile, loading } = this.props.profile;
+    let navbarOrders;
+
+    if (profile === null || loading) {
+    } else if (Object.keys(profile).length > 0) {
+      navbarOrders = (
+        <Link className="nav-link" to="/orders">
+          Order Management
+        </Link>
+      );
+    } else {
+      navbarOrders = (
+        <Link className="nav-link" to="/create-profile">
+          Create shop's profile
+        </Link>
+      );
+    }
 
     const authLinks = (
       <div className="collapse navbar-collapse" id="mobile-nav">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/orders">
-              {" "}
-              Orders
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link className="nav-link" to="/dashboard">
-              {" "}
               Dashboard
             </Link>
           </li>
+          <li className="nav-item">{navbarOrders}</li>
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
@@ -73,7 +85,6 @@ class Navbar extends Component {
             EXPRESSTAR
           </Link>
           <Link className="nav-link text-warning" to="/profiles">
-            {" "}
             Shop List
           </Link>
           <button
@@ -93,11 +104,13 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  profile: state.profile
 });
 export default connect(
   mapStateToProps,

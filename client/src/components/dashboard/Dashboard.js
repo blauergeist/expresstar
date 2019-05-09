@@ -5,8 +5,32 @@ import Spinner from "../common/Spinner";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 import { Link } from "react-router-dom";
 import ProfileActions from "./ProfileActions";
+import TextFieldGroup from "../common/TextFieldGroup";
+import { getOrder } from "../../actions/orderActions";
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tracking: ""
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    const trackOrder = {
+      tracking: this.state.tracking
+    };
+
+    this.props.getOrder(trackOrder);
+  }
+
   onDeleteClick(e) {
     this.props.deleteAccount();
   }
@@ -17,7 +41,7 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
-
+    const { errors } = this.props.errors;
     let dashboardContent;
 
     if (profile === null || loading) {
@@ -48,8 +72,27 @@ class Dashboard extends Component {
         dashboardContent = (
           <div>
             <p className="lead text-muted">Welcome {user.name}</p>
+            <form onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <TextFieldGroup
+                  placeholder="Enter a tracking ID"
+                  name="tracking"
+                  value={this.state.tracking}
+                  onChange={this.onChange}
+                  error={errors}
+                  info="If you wish to track your purchase, please enter the tracking ID you were provided by your seller"
+                />
+              </div>
+              <button type="submit" className="btn btn-lg btn-info">
+                <Link to={`/order/${this.state.tracking}`} className="btn-info">
+                  Track Order ID
+                </Link>
+              </button>
+            </form>
+            <br /> <br />
             <p>
-              You have not created your profile. Click below and add your info.
+              If you wish to create your shop's profile, click below and add
+              your info to get started.
             </p>
             <Link to="/create-profile" className="btn btn-lg btn-info">
               Create Profile
@@ -82,10 +125,11 @@ Dashboard.propTypes = {
 };
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
+  errors: state.errors
 });
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, deleteAccount }
+  { getCurrentProfile, deleteAccount, getOrder }
 )(Dashboard);

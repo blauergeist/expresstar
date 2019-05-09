@@ -7,7 +7,9 @@ import {
   GET_ORDER,
   ORDER_LOADING,
   ASSIGN_ORDER,
-  DELETE_ORDER
+  DELETE_ORDER,
+  GET_DRIVERS,
+  GET_SELECTED
 } from "./types";
 
 //add an order
@@ -66,6 +68,26 @@ export const getOrders = () => dispatch => {
     );
 };
 
+//get a single order
+export const getOrder = id => dispatch => {
+  dispatch(setOrderLoading());
+
+  axios
+    .get(`/api/orders/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_ORDER,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ORDER,
+        payload: null
+      })
+    );
+};
+
 //assign driver and to an order
 export const assignOrder = assignData => dispatch => {
   axios
@@ -82,6 +104,7 @@ export const assignOrder = assignData => dispatch => {
         payload: err.response.data
       })
     );
+  window.location.reload();
 };
 
 export const getCurrentOrder = () => dispatch => {
@@ -100,6 +123,32 @@ export const getCurrentOrder = () => dispatch => {
         payload: {}
       })
     );
+};
+
+//get all drivers in the system
+export const getDrivers = () => dispatch => {
+  axios
+    .get("/api/users/drivers")
+    .then(res =>
+      dispatch({
+        type: GET_DRIVERS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_DRIVERS,
+        payload: {}
+      })
+    );
+};
+
+//get selected driver
+export const getSelectedDriver = driverSelected => dispatch => {
+  dispatch({
+    type: GET_SELECTED,
+    payload: driverSelected
+  });
 };
 
 //set loading state

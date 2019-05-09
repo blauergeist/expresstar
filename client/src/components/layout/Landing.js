@@ -23,15 +23,22 @@ class Landing extends Component {
                   Providing quality and quantity to your selling process.
                 </p>
                 <hr />
-                <Link
-                  to="/register"
-                  className="btn btn-lg btn-warning text-white mr-2"
-                >
-                  Register
-                </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
-                  Login
-                </Link>
+                <div className="pt-5">
+                  <Link
+                    to="/register"
+                    className="btn btn-lg btn-warning text-white mr-2"
+                  >
+                    Register
+                  </Link>
+                  <Link to="/login" className="btn btn-lg btn-light">
+                    Login
+                  </Link>
+                  <p className="small pt-3">
+                    {" "}
+                    Please register or log in to an existing account to view
+                    your delivery information.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { getOrders } from "../../actions/orderActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import OrderForm from "./OrderForm";
+import { Link } from "react-router-dom";
 
 class CreateOrder extends Component {
   componentDidMount() {
@@ -14,6 +15,9 @@ class CreateOrder extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
+              <Link to="/dashboard" className="btn btn-light mb-3">
+                Back to Dashboard
+              </Link>
               <OrderForm />
             </div>
           </div>

@@ -4,12 +4,16 @@ import {
   GET_ORDER,
   ORDER_LOADING,
   ASSIGN_ORDER,
-  DELETE_ORDER
+  DELETE_ORDER,
+  GET_DRIVERS,
+  GET_SELECTED
 } from "../actions/types";
 
 const initialState = {
   orders: [],
+  deliverySelect: {},
   order: {},
+  drivers: [],
   loading: false
 };
 
@@ -32,6 +36,12 @@ export default function(state = initialState, action) {
         orders: action.payload,
         loading: false
       };
+    case GET_SELECTED:
+      return {
+        ...state,
+        deliverySelect: action.payload,
+        loading: false
+      };
     case DELETE_ORDER:
       return {
         ...state,
@@ -47,7 +57,12 @@ export default function(state = initialState, action) {
         ...state,
         orders: [action.payload, ...state.orders]
       };
-
+    case GET_DRIVERS:
+      return {
+        ...state,
+        drivers: action.payload,
+        loading: false
+      };
     default:
       return state;
   }

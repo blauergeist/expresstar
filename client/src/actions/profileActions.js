@@ -6,7 +6,9 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  ADD_FEEDBACK,
+  DELETE_FEEDBACK
 } from "./types";
 
 //get current profile
@@ -121,20 +123,60 @@ export const deleteAccount = () => dispatch => {
 export const addLike = id => dispatch => {
   axios
     .post(`/api/profile/like/${id}`)
-    .then(res => dispatch(getCurrentProfile()))
+    .then(res => dispatch(getProfiles()))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
     );
+  window.location.reload();
 };
 
 //downvote a shop
 export const removeLike = id => dispatch => {
   axios
     .post(`/api/profile/unlike/${id}`)
-    .then(res => dispatch(getCurrentProfile()))
+    .then(res => dispatch(getProfiles()))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+  window.location.reload();
+};
+
+//add a comment
+export const addComment = (profileId, commentData) => dispatch => {
+  axios
+    .post(`/api/profile/comment/${profileId}`, commentData)
+    .then(res =>
+      dispatch({
+        type: ADD_FEEDBACK,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: ADD_FEEDBACK,
+        payload: err.response.data
+      })
+    );
+  window.alert("Feedback sent successfully");
+  window.location.reload();
+};
+
+//delete a comment
+export const deleteComment = (profileId, commentId) => dispatch => {
+  axios
+    .post(`/api/profile/comment/${profileId}/${commentId}`)
+    .then(res =>
+      dispatch({
+        type: DELETE_FEEDBACK,
+        payload: res.data
+      })
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

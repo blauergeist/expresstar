@@ -128,4 +128,18 @@ router.get(
   }
 );
 
+router.get(
+  "/drivers",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    if (req.user.role === "admin") {
+      User.find({ role: "driver" })
+        .sort({ date: -1 })
+        .then(users => res.json(users));
+    } else {
+      res.status(401).json(err);
+    }
+  }
+);
+
 module.exports = router;

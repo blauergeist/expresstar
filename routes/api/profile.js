@@ -298,7 +298,7 @@ router.post(
 // @route         DELETE api/profile/comment/:id
 // @description   remove feedback from a profile
 // @access        private
-router.delete("/comment/:id/:comment_id"),
+router.delete("/profile/comment/:id/:comment_id"),
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findById(req.params.id)

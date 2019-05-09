@@ -8,7 +8,7 @@ class ProfileItem extends Component {
     const { profile } = this.props;
 
     return (
-      <div className="card card-body text-light bg-dark mb-3">
+      <div className="card card-body text-light bg-dark mb-3 grow">
         <div className="row d-flex justify-content-center">
           <div className="col-2">
             <img src={profile.user.avatar} alt="" className="rounded-circle" />

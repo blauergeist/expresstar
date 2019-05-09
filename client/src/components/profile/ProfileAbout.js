@@ -10,7 +10,7 @@ class ProfileAbout extends Component {
     const firstName = profile.user.name.trim().split(" ")[0];
 
     return (
-      <div className="row">
+      <div className="row ">
         <div className="col-md-12">
           <div className="card card-body bg-light mb-3">
             <h3 className="text-center text-warning">

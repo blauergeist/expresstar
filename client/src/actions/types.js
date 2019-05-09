@@ -11,3 +11,7 @@ export const GET_ORDER = "GET_ORDER";
 export const ADD_ORDER = "ADD_ORDER";
 export const DELETE_ORDER = "DELETE_ORDER";
 export const ASSIGN_ORDER = "ASSIGN_ORDER";
+export const GET_DRIVERS = "GET_DRIVERS";
+export const GET_SELECTED = "GET_SELECTED";
+export const ADD_FEEDBACK = "ADD_FEEDBACK";
+export const DELETE_FEEDBACK = "REMOVE_FEEDBACK";

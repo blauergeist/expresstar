@@ -25,6 +25,8 @@ import Profile from "./components/profile/Profile";
 import Orders from "./components/orders/Orders";
 import CreateOrder from "./components/orders/CreateOrder";
 import Order from "./components/order/Order";
+import Comments from "./components/profile/Comments";
+import Particles from "react-particles-js";
 
 //check local storage for token after every request
 if (localStorage.jwtToken) {
@@ -45,7 +47,24 @@ if (localStorage.jwtToken) {
     window.location.href = "/login";
   }
 }
-
+const particlesOptions = {
+  particles: {
+    number: {
+      value: 80,
+      density: {
+        enable: true,
+        value_area: 600
+      }
+    },
+    line_linked: {
+      shadow: {
+        enable: true,
+        color: "#5b5b50",
+        blur: 1
+      }
+    }
+  }
+};
 class App extends Component {
   render() {
     return (
@@ -53,42 +72,65 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <Route exact path="/profiles" component={Profiles} />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/profile/:handle" component={Profile} />
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/create-profile"
-                component={CreateProfile}
-              />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/edit-profile"
-                component={EditProfile}
-              />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/orders" component={Orders} />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/create-order"
-                component={CreateOrder}
-              />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/order/:id" component={Order} />
-            </Switch>
-            <Footer />
+            <div
+              style={{
+                position: "absolute",
+                top: 100,
+                left: 0,
+                width: "100%",
+                height: "100%"
+              }}
+            >
+              <Particles params={particlesOptions} />
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                width: "100%",
+                height: "100%"
+              }}
+            >
+              <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/profile/:handle" component={Profile} />
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/edit-profile"
+                  component={EditProfile}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/orders" component={Orders} />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/create-order"
+                  component={CreateOrder}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/order/:id" component={Order} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/feedback" component={Comments} />
+              </Switch>
+              <Footer />
+            </div>
           </div>
         </Router>
       </Provider>
