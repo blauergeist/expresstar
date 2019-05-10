@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { deleteComment } from "../../actions/profileActions";
-import tachyons from "tachyons";
 
 class CommentItem extends Component {
   onDeleteClick(profileId, commentId) {
