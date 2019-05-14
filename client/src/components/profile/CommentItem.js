@@ -11,19 +11,27 @@ class CommentItem extends Component {
   render() {
     const { comment, profileId, auth } = this.props;
     const { profile } = this.props.profile;
+    var cardWidth = {
+      width: "18rem"
+    };
     return (
       <div className="d-inline-block">
-        <article className="mw6 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10 grow">
-          <div className="tc">
+        <article
+          className="card mw6 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10 grow"
+          style={cardWidth}
+        >
+          <div className="tc card-body">
             <img
               src={comment.avatar}
-              className="br-100 h3 w3 dib"
+              className="card-img-top br-100 h3 w3 dib"
               title="Profile picture"
             />
-            <h1 className="f4">{comment.name}</h1>
+            <h1 className="f4 card-title">{comment.name}</h1>
             <hr className="mw3 bb bw1 b--black-10" />
           </div>
-          <p className="lh-copy measure center f6 black-70">{comment.text}</p>
+          <p className="card-text lh-copy measure center f6 black-70">
+            {comment.text}
+          </p>
           {/* <button
             onClick={this.onDeleteClick.bind(this, profileId, comment._id)}
             type="button"
