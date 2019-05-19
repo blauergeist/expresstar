@@ -31,7 +31,7 @@ require("./config/passport")(passport);
 app.use("/api/orders", orders);
 app.use("/api/profile", profiles);
 app.use("/api/users", users);
-
+process.env.NODE_ENV === "production";
 //static assets for production
 if (process.env.NODE_ENV === "production") {
   //set a static folder
@@ -41,5 +41,5 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server is being ran on port ${PORT}`));
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server is being ran on port ${port}`));
