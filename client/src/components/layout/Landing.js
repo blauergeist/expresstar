@@ -20,7 +20,8 @@ class Landing extends Component {
                 <h1 className="display-3 mb-4">Expresstar</h1>
                 <p className="lead">
                   {" "}
-                  Providing quality and quantity to your selling process.
+                  Providing quality and quantity to your selling & buying
+                  process.
                 </p>
                 <hr />
                 <div className="pt-5">
@@ -35,8 +36,9 @@ class Landing extends Component {
                   </Link>
                   <p className="small pt-3">
                     {" "}
-                    Please register or log in to an existing account to view
-                    your delivery information.
+                    Please register or log in to an existing account to find
+                    trusted online shops, view your delivery information and
+                    manage your orders.
                   </p>
                 </div>
               </div>

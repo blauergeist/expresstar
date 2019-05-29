@@ -28,6 +28,7 @@ export const addOrder = orderData => dispatch => {
         payload: err.response.data
       })
     );
+  window.alert("Order successful");
 };
 
 //delete/cancel an order

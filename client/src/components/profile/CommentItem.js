@@ -15,9 +15,9 @@ class CommentItem extends Component {
       width: "18rem"
     };
     return (
-      <div className="d-inline-block">
+      <div className="d-inline-block p-3">
         <article
-          className="card mw6 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10 grow"
+          className="card mw6 p-4 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10 grow"
           style={cardWidth}
         >
           <div className="tc card-body">

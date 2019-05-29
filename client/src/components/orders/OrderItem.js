@@ -246,7 +246,7 @@ class OrderItem extends Component {
                   </div>
                 </form>
               ) : (
-                <div className="d-inline-block">
+                <div>
                   <div className="text-center">
                     <h6 className="text-warning">Shipment Status</h6>
                     <h4>{order.status}</h4>

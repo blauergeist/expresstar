@@ -12,8 +12,14 @@ class Comments extends Component {
           <h1 className="display-4 d-flex justify-content-center">
             My Shop's Feedback
           </h1>
-
-          <CommentList profileId={profile._id} comments={profile.comments} />
+          <div className="row">
+            <div className="col-md-12">
+              <CommentList
+                profileId={profile._id}
+                comments={profile.comments}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -4,6 +4,10 @@ import isEmpty from "../../validation/is-empty";
 class ProfileHeader extends Component {
   render() {
     const { profile } = this.props;
+    const fblink = `http://${profile.social.facebook}`;
+    const iglink = `http://${profile.social.instagram}`;
+    const olxlink = `http://${profile.social.olx}`;
+    const shopweb = `http://${profile.website}`;
 
     return (
       <div className="row grow">
@@ -37,7 +41,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.website) ? null : (
                   <a
                     className="text-warning p-2"
-                    href={profile.website}
+                    href={shopweb}
                     target="_blank"
                   >
                     <i className="fas fa-globe fa-2x" />
@@ -46,30 +50,22 @@ class ProfileHeader extends Component {
 
                 {isEmpty(profile.social && profile.social.olx) ? null : (
                   <a
-                    className="text-warning p-2"
-                    href={profile.social.olx}
                     target="_blank"
+                    className="text-warning p-2"
+                    href={olxlink}
                   >
                     <i className="fas fa-shopping-cart fa-2x" />
                   </a>
                 )}
 
                 {isEmpty(profile.social && profile.social.facebook) ? null : (
-                  <a
-                    className="text-warning p-2"
-                    href={profile.social.facebook}
-                    target="_blank"
-                  >
+                  <a target="_blank" className="text-warning p-2" href={fblink}>
                     <i className="fab fa-facebook fa-2x" />
                   </a>
                 )}
 
                 {isEmpty(profile.social && profile.social.instagram) ? null : (
-                  <a
-                    className="text-warning p-2"
-                    href={profile.social.instagram}
-                    target="_blank"
-                  >
+                  <a target="_blank" className="text-warning p-2" href={iglink}>
                     <i className="fab fa-instagram fa-2x" />
                   </a>
                 )}

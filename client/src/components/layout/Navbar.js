@@ -41,6 +41,11 @@ class Navbar extends Component {
               Dashboard
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/profiles">
+              Shop List
+            </Link>
+          </li>
           <li className="nav-item">{navbarOrders}</li>
         </ul>
         <ul className="navbar-nav ml-auto">
@@ -83,9 +88,6 @@ class Navbar extends Component {
         <div className="container">
           <Link className="navbar-brand" to="/">
             EXPRESSTAR
-          </Link>
-          <Link className="nav-link text-warning" to="/profiles">
-            Shop List
           </Link>
           <button
             className="navbar-toggler"
